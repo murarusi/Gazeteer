@@ -1,0 +1,27 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/murarusi/project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/murarusi/project/issues"
+  },
+  "homepage": "https://github.com/murarusi/project#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "bootstrap": "^5.1.0",
+    "jquery": "^3.6.0",
+    "leaflet": "^1.7.1",
+    "leaflet-easybutton": "^2.4.0",
+    "leaflet.markercluster": "^1.5.0"
+  },
+  "description": ""
+}

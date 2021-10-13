@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Claudiu Murarusi - Gazetteer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="author" content="Claudiu Murarusi">
+
+    <!--Favicon:-->
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <!--    Stylesheets-->
+    <link rel="stylesheet" href="vendors/node_modules/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="vendors/node_modules/leaflet-easybutton/src/easy-button.css">
+    <link rel="stylesheet" href="vendors/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="vendors/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/node_modules/leaflet.markercluster/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="libs/css/style.css">
+
+
+</head>
+<body>
+<div id="preloader"></div>
+<!--Header Section-->
+<div>
+    <nav class="my-nav navbar navbar-expand-lg navbar-dark  ">
+        <div id="header" class="my-row row align-items-center container-fluid">
+            <div class="my-col nav-header col-7  pr-0 row align-items-center">
+                <i class="fas fa-map-marked-alt fa-3x my-icon d-inline"></i>
+                <h1 id="title" class="d-inline pl-1">Gazetteer</h1>
+            </div>
+            <div class="my-col  col-5 p-0 my-3 mx-auto">
+                <select name="country" id="selectOption" class="selectOption form-select-sm">
+                </select>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div id="mapId" ></div>
+
+<!-- Weather -->
+<div class="modal fade flex-nowrap" id="weatherModalScrollable" tabindex="-1" role="dialog"
+     aria-labelledby="weatherModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog container-fluid modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content ">
+
+
+            <div class="container-fluid" id="wheather-wrapper">
+                <div id="first-day">
+                    <div class="day row" style="border: none;">
+                        <div class="wheather-img col">
+                            <p class="weather-text">Today </p>
+                            <img id="weatherImg0" alt="">
+                        </div>
+
+                        <div class="temps col"  id="first-day-temp">
+                            <p class="weather-text" id="weatherMaxTempDay0"></p>
+                            <p class="weather-text" id="weatherMinTempDay0"></p>
+                        </div>
+
+                    </div>
+
+                    <div  class="col-6" id="weather-desc">
+                        <p class="weather-text" id="todayWeatherDesc"></p>
+                    </div>
+                </div>
+                <div id="four-days" class="row">
+                    <div class="day col" id="second-day">
+                        <div class="wheather-img">
+                            <p class="weather-text">Tomorrow </p>
+                            <img id="weatherImg1" alt="">
+                        </div>
+                        <div class="temps">
+                            <p class="weather-text" id="weatherMaxTempDay1"></p>
+                            <p class="weather-text" id="weatherMinTempDay1"></p>
+                        </div>
+                    </div>
+
+                    <div class="day col">
+                        <div class="wheather-img">
+                            <p class="weather-text weather-date" id="weatherDay2"></p>
+                            <img id="weatherImg2" alt="">
+                        </div>
+                        <div class="temps">
+                            <p class="weather-text" id="weatherMaxTempDay2"></p>
+                            <p class="weather-text" id="weatherMinTempDay2"></p>
+                        </div>
+                    </div>
+
+                    <div class="day col">
+                        <div class="wheather-img">
+                            <p class="weather-text weather-date" id="weatherDay3"></p>
+                            <img id="weatherImg3" alt="">
+                        </div>
+                        <div class="temps">
+                            <p class="weather-text" id="weatherMaxTempDay3"></p>
+                            <p class="weather-text" id="weatherMinTempDay3"></p>
+                        </div>
+                    </div>
+
+                    <div class="day col">
+                        <div class="wheather-img">
+                            <p class="weather-text weather-date" id="weatherDay4"></p>
+                            <img id="weatherImg4" alt="">
+                        </div>
+                        <div class="temps">
+                            <p class="weather-text" id="weatherMaxTempDay4"></p>
+                            <p class="weather-text" id="weatherMinTempDay4"></p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Info -->
+<div class="modal fade" id="infoModalScrollable" tabindex="-1" role="dialog"
+     aria-labelledby="infoModalScrollableTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header row">
+                <h4 class="modal-title col-10" id="infoModalScrollableTitle" data-dismiss="modal">Information</h4>
+            </div>
+            <div class="modal-body" id="page1">
+                <div class="row info-panel" aria-labelledby="headingOne">
+                    <table class="table table-light table-stripped col-12 m-0" id="infoTable">
+                        <thead>
+                        <tr>
+                            <th id="countryName"></th>
+                            <th><img id="flag" alt="Country flag"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Continent:</td>
+                            <td id="continent"></td>
+                        </tr>
+                        <tr>
+                            <td>Capital City:</td>
+                            <td id="capital"></td>
+                        </tr>
+                        <tr>
+                            <td>Area:</td>
+                            <td id="area"></td>
+                        </tr>
+                        <tr>
+                            <td>Population:</td>
+                            <td id="population"></td>
+                        </tr>
+                        <tr>
+                            <td>Currency:</td>
+                            <td id="currency"></td>
+                        </tr>
+                        <tr>
+                            <td>Language:</td>
+                            <td id="language"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="wiki" class="col-12">
+                        <h2>Wiki: <span id="sumTitle"></span></h2>
+                        <blockquote class="blockquote text-left">
+                            <p id="summary"></p>
+                            <footer style="text-align: center;" class="blockquote-footer"><p class="sourced">Sourced
+                                from</p>
+                                <a target="_blank" href="https://getbootstrap.com/docs/4.1/extend/approach/"
+                                   id="wikipediaUrl"></a></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mp-0 modalClose" data-bs-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exchange -->
+<div class="modal fade" id="exchangeModalScrollable" tabindex="-1" role="dialog"
+     aria-labelledby="exchangeModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable bg-transparent" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title col-10" id="exchangeModalScrollableTitle" data-bs-dismiss="modal">
+                    Exchange</h4>
+            </div>
+            <div class="modal-body" id="page4">
+                <div class="row infoPanel p-0 m-0" aria-labelledby="headingFour">
+                    <table class="table table-light table-striped col-12 m-0">
+                        <thead>
+                        <tr>
+                            <th class="col-6">Amount:</th>
+                            <th class="col-6"><input type="number" id="exchangeInput" class="form-control-sm" value="10" placeholder="0">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>From:</td>
+                            <td><select id="fromCurrency" class="row form-select-sm"></select></td>
+                        </tr>
+                        <tr>
+                            <td>To:</td>
+                            <td><select id="toCurrency" class="row form-select-sm"></select></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="row btn" id="exchangeBtn">Exchange</button>
+                            </td>
+                            <td><h5 class="row" id="exchangeResult"></h5></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>As of:</td>
+                            <td id="exchangeDate"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modalClose" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="vendors/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="vendors/node_modules/jquery/dist/jquery.js"></script>
+<script src="vendors/node_modules/leaflet/dist/leaflet.js"></script>
+<script src="vendors/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+<script src="vendors/node_modules/leaflet-easybutton/src/easy-button.js"></script>
+<script src="libs/js/script.js"></script>
+</body>
+
+</html>
